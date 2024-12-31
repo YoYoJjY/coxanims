@@ -32,7 +32,9 @@ local buttons = {
     {name = "oneleg", position = 415},
     {name = "drop", position = 460},
     {name = "moonwalkz", position = 505},
-    {name = "StopAnim", position = 550},
+    {name = "point", position = 550},
+    {name = "nutdrop", position = 595},
+    {name = "StopAnim", position = 640},
 }
 
 -- Create buttons dynamically
@@ -297,6 +299,40 @@ local function playmoonwalkz()
     hit.TimePosition = 1  -- Set the animation start position
 end
 
+-- Function to trigger the "point" animation
+local function playpoint()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714395441"  -- point animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 1)  -- Play the animation with a slight delay
+    hit.TimePosition = 0  -- Set the animation start position
+end
+
+-- Function to trigger the "nutdrop" animation
+local function playnutdrop()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://136831243854748"  -- nutdrop animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0)  -- Play the animation with a slight delay
+    hit.TimePosition = 2.4  -- Set the animation start position
+end
+
 -- Function to stop any playing animations
 local function stopAnimations()
     local character = player.Character or player.CharacterAdded:Wait()
@@ -328,6 +364,8 @@ scrollFrame:WaitForChild("climbButton").MouseButton1Click:Connect(playclimb)
 scrollFrame:WaitForChild("onelegButton").MouseButton1Click:Connect(playoneleg)
 scrollFrame:WaitForChild("dropButton").MouseButton1Click:Connect(playdrop)
 scrollFrame:WaitForChild("moonwalkzButton").MouseButton1Click:Connect(playmoonwalkz)
+scrollFrame:WaitForChild("pointButton").MouseButton1Click:Connect(playpoint)
+scrollFrame:WaitForChild("nutdropButton").MouseButton1Click:Connect(playnutdrop)
 scrollFrame:WaitForChild("StopAnimButton").MouseButton1Click:Connect(stopAnimations)
 
 -- Create the Open/Close button
