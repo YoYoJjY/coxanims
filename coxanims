@@ -1,0 +1,370 @@
+-- Create the button and UI
+local player = game.Players.LocalPlayer
+local playerGui = player:WaitForChild("PlayerGui")
+
+-- Create a ScreenGui to hold the buttons
+local screenGui = Instance.new("ScreenGui")
+screenGui.Name = "CoxsAnimationGui"
+screenGui.Parent = playerGui
+
+-- Create a ScrollingFrame to hold the buttons and make it scrollable
+local scrollFrame = Instance.new("ScrollingFrame")
+scrollFrame.Name = "ScrollFrame"
+scrollFrame.Size = UDim2.new(0, 200, 0, 400)  -- Adjust the size to fit the screen
+scrollFrame.Position = UDim2.new(1, -210, 0, 10)  -- Position it on the right side
+scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 800)  -- Adjust canvas size for scrolling
+scrollFrame.ScrollBarThickness = 10  -- Make the scrollbar visible
+scrollFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)  -- Background color for scroll frame
+scrollFrame.Parent = screenGui
+scrollFrame.Visible = false  -- Initially hidden
+
+-- Create buttons with only Tripout and StopAnimButton
+local buttons = {
+    {name = "Tripout", position = 10},
+    {name = "Goku", position = 55},
+    {name = "sleep", position = 100},
+    {name = "ohyeah4", position = 145},
+    {name = "victory", position = 190},
+    {name = "heli", position = 235},
+    {name = "crawl", position = 280},
+    {name = "wheelie", position = 325},
+    {name = "climb", position = 370},
+    {name = "oneleg", position = 415},
+    {name = "drop", position = 460},
+    {name = "StopAnim", position = 505},
+}
+
+-- Create buttons dynamically
+for _, buttonData in ipairs(buttons) do
+    local button = Instance.new("TextButton")
+    button.Name = buttonData.name .. "Button"
+    button.Size = UDim2.new(0, 150, 0, 40)
+    button.Position = UDim2.new(0, 10, 0, buttonData.position)
+    button.Text = buttonData.name
+    button.TextSize = 20
+    button.TextColor3 = Color3.fromRGB(0, 255, 255)
+    button.BackgroundColor3 = Color3.fromRGB(50, 50, 50)
+    button.BackgroundTransparency = 0.3
+    button.Parent = scrollFrame
+end
+
+-- Function to trigger the "Tripout" animations
+local function playAnimations()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if not humanoid then
+        warn("Humanoid not found in character.")
+        return
+    end
+
+    -- Stop existing animations and disable the Animate script
+    for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    character.Animate.Disabled = true
+
+    -- Animation data for the first animation
+    local animation1Data = {
+        ID = "rbxassetid://5915648917", -- First animation ID
+        TimePosition = 2 -- Starting time position for the first animation
+    }
+
+    -- Animation data for the second animation
+    local animation2Data = {
+        ID = "rbxassetid://108417311687435", -- Second animation ID
+        TimePosition = 0 -- Starting time position for the second animation
+    }
+
+    -- Animation data for the third animation
+    local animation3Data = {
+        ID = "rbxassetid://120852155458841", -- Third animation ID
+        TimePosition = 0 -- Starting time position for the third animation
+    }
+
+    -- Create and load animations
+    local animation1 = Instance.new("Animation")
+    animation1.AnimationId = animation1Data.ID
+    local animationTrack1 = humanoid:LoadAnimation(animation1)
+
+    local animation2 = Instance.new("Animation")
+    animation2.AnimationId = animation2Data.ID
+    local animationTrack2 = humanoid:LoadAnimation(animation2)
+
+    local animation3 = Instance.new("Animation")
+    animation3.AnimationId = animation3Data.ID
+    local animationTrack3 = humanoid:LoadAnimation(animation3)
+
+    -- Play animations and freeze them at the desired positions
+    animationTrack1:Play()
+    animationTrack1.TimePosition = animation1Data.TimePosition
+    animationTrack1:AdjustSpeed(0) -- Freeze animation 1
+
+    animationTrack2:Play()
+    animationTrack2.TimePosition = animation2Data.TimePosition
+    animationTrack2:AdjustSpeed(3) -- Freeze animation 2
+
+    animationTrack3:Play()
+    animationTrack3.TimePosition = animation3Data.TimePosition
+    animationTrack3:AdjustSpeed(1) -- Freeze animation 3
+end
+
+-- Function to trigger the "Goku" hug animation
+local function playGoku()
+    local speaker = player  -- This is the player clicking the button
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714389396"  -- Goku Hug animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "sleep" hug animation
+local function playsleep()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://2695918332"  -- sleep animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 1)  -- Play the animation with a slight delay
+    hit.TimePosition = 6.3  -- Set the animation start position
+end
+
+-- Function to trigger the "Beggin" hug animation
+local function playohyeah4()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://16270690701"  -- ohyeah4 animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
+    hit.TimePosition = 6.6  -- Set the animation start position
+end
+
+-- Function to trigger the "victory" hug animation
+local function playvictory()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714171628"  -- victory animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 1)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "heli" hug animation
+local function playheli()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://900850443"  -- heli animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 10)  -- Play the animation with a slight delay
+    hit.TimePosition = 0  -- Set the animation start position
+end
+
+-- Function to trigger the "crawl" hug animation
+local function playcrawl()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://16738332169"  -- crawl animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "wheelie" hug animation
+local function playwheelie()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://3360694441"  -- wheelie animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "climb" animation
+local function playclimb()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://18537363391"  -- climb animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "oneleg" animation
+local function playoneleg()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://92294537340807"  -- oneleg animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0.3)  -- Play the animation with a slight delay
+    hit.TimePosition = 0  -- Set the animation start position
+end
+
+-- Function to trigger the "drop" animation
+local function playdrop()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://136831243854748"  -- drop animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 1)  -- Play the animation with a slight delay
+    hit.TimePosition = 0  -- Set the animation start position
+end
+
+-- Function to stop any playing animations
+local function stopAnimations()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if humanoid then
+        -- Stop all animations that are currently playing
+        for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+            track:Stop()
+        end
+
+        -- Optionally, re-enable the Animate script if you want animations to resume
+        character.Animate.Disabled = false
+    else
+        warn("Humanoid not found in character.")
+    end
+end
+
+-- Connect the button clicks to the respective functions
+scrollFrame:WaitForChild("TripoutButton").MouseButton1Click:Connect(playAnimations)
+scrollFrame:WaitForChild("GokuButton").MouseButton1Click:Connect(playGoku)
+scrollFrame:WaitForChild("sleepButton").MouseButton1Click:Connect(playsleep)
+scrollFrame:WaitForChild("ohyeah4Button").MouseButton1Click:Connect(playohyeah4)
+scrollFrame:WaitForChild("victoryButton").MouseButton1Click:Connect(playvictory)
+scrollFrame:WaitForChild("heliButton").MouseButton1Click:Connect(playheli)
+scrollFrame:WaitForChild("crawlButton").MouseButton1Click:Connect(playcrawl)
+scrollFrame:WaitForChild("wheelieButton").MouseButton1Click:Connect(playwheelie)
+scrollFrame:WaitForChild("climbButton").MouseButton1Click:Connect(playclimb)
+scrollFrame:WaitForChild("onelegButton").MouseButton1Click:Connect(playoneleg)
+scrollFrame:WaitForChild("dropButton").MouseButton1Click:Connect(playdrop)
+scrollFrame:WaitForChild("StopAnimButton").MouseButton1Click:Connect(stopAnimations)
+
+-- Create the Open/Close button
+local openCloseButton = Instance.new("TextButton")
+openCloseButton.Name = "OpenCloseButton"
+openCloseButton.Size = UDim2.new(0, 100, 0, 40)
+openCloseButton.Position = UDim2.new(0, 10, 0, 10)
+openCloseButton.Text = "Open"
+openCloseButton.TextSize = 20
+openCloseButton.TextColor3 = Color3.fromRGB(255, 255, 255)
+openCloseButton.BackgroundColor3 = Color3.fromRGB(0, 0, 0)
+openCloseButton.BackgroundTransparency = 0.3
+openCloseButton.Parent = screenGui
+
+-- Toggle the visibility of the ScrollFrame and change the button text
+openCloseButton.MouseButton1Click:Connect(function()
+    if scrollFrame.Visible then
+        scrollFrame.Visible = false
+        openCloseButton.Text = "Open"
+    else
+        scrollFrame.Visible = true
+        openCloseButton.Text = "Close"
+    end
+end)
+
+-- Make the scrollFrame draggable
+local dragging = false
+local dragStart = nil
+local startPos = nil
+
+-- Create a function to handle dragging
+local function onInputBegan(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        -- When the mouse button is pressed, start dragging
+        dragging = true
+        dragStart = input.Position
+        startPos = scrollFrame.Position
+    end
+end
+
+local function onInputChanged(input)
+    if dragging then
+        -- If dragging, calculate the new position based on mouse movement
+        local delta = input.Position - dragStart
+        scrollFrame.Position = UDim2.new(startPos.X.Scale, startPos.X.Offset + delta.X, startPos.Y.Scale, startPos.Y.Offset + delta.Y)
+    end
+end
+
+local function onInputEnded(input)
+    if input.UserInputType == Enum.UserInputType.MouseButton1 then
+        -- Stop dragging when the mouse button is released
+        dragging = false
+    end
+end
+
+-- Connect the input events to make the GUI draggable
+scrollFrame.InputBegan:Connect(onInputBegan)
+scrollFrame.InputChanged:Connect(onInputChanged)
+scrollFrame.InputEnded:Connect(onInputEnded)
