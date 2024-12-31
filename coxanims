@@ -31,7 +31,8 @@ local buttons = {
     {name = "climb", position = 370},
     {name = "oneleg", position = 415},
     {name = "drop", position = 460},
-    {name = "StopAnim", position = 505},
+    {name = "moonwalkz", position = 505},
+    {name = "StopAnim", position = 550},
 }
 
 -- Create buttons dynamically
@@ -279,6 +280,23 @@ local function playdrop()
     hit.TimePosition = 0  -- Set the animation start position
 end
 
+-- Function to trigger the "moonwalkz" animation
+local function playmoonwalkz()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714371274"  -- moonwalkz animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 1)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
 -- Function to stop any playing animations
 local function stopAnimations()
     local character = player.Character or player.CharacterAdded:Wait()
@@ -309,6 +327,7 @@ scrollFrame:WaitForChild("wheelieButton").MouseButton1Click:Connect(playwheelie)
 scrollFrame:WaitForChild("climbButton").MouseButton1Click:Connect(playclimb)
 scrollFrame:WaitForChild("onelegButton").MouseButton1Click:Connect(playoneleg)
 scrollFrame:WaitForChild("dropButton").MouseButton1Click:Connect(playdrop)
+scrollFrame:WaitForChild("moonwalkzButton").MouseButton1Click:Connect(playmoonwalkz)
 scrollFrame:WaitForChild("StopAnimButton").MouseButton1Click:Connect(stopAnimations)
 
 -- Create the Open/Close button
