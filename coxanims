@@ -12,7 +12,7 @@ local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Name = "ScrollFrame"
 scrollFrame.Size = UDim2.new(0, 200, 0, 400)  -- Adjust the size to fit the screen
 scrollFrame.Position = UDim2.new(1, -210, 0, 10)  -- Position it on the right side
-scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 800)  -- Adjust canvas size for scrolling
+scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 1400)  -- Adjust canvas size for scrolling
 scrollFrame.ScrollBarThickness = 10  -- Make the scrollbar visible
 scrollFrame.BackgroundColor3 = Color3.fromRGB(30, 30, 30)  -- Background color for scroll frame
 scrollFrame.Parent = screenGui
@@ -34,7 +34,19 @@ local buttons = {
     {name = "moonwalkz", position = 505},
     {name = "point", position = 550},
     {name = "nutdrop", position = 595},
-    {name = "StopAnim", position = 640},
+    {name = "Ibelieve", position = 640},
+    {name = "babywalk", position = 685},
+    {name = "sneaky", position = 730},
+    {name = "swish", position = 775},
+    {name = "clap", position = 820},
+    {name = "handstandwalk", position = 865},
+    {name = "swim3", position = 910},
+    {name = "balspin", position = 955},
+    {name = "modelwalk", position = 1000},
+    {name = "kungfo", position = 1045},
+    {name = "gunshoot", position = 1090},
+    {name = "reloadgun", position = 1135},
+    {name = "StopAnim", position = 1180},
 }
 
 -- Create buttons dynamically
@@ -333,6 +345,379 @@ local function playnutdrop()
     hit.TimePosition = 2.4  -- Set the animation start position
 end
 
+-- Function to trigger the "Ibelieve" animation
+local function playIbelieve()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://12992262118"  -- Ibelieve animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0.3)  -- Play the animation with a slight delay
+    hit.TimePosition = 2.5  -- Set the animation start position
+end
+
+-- Function to trigger the "babywalk" animations
+local function playbabywalk()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if not humanoid then
+        warn("Humanoid not found in character.")
+        return
+    end
+
+    -- Stop existing animations and disable the Animate script
+    for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    character.Animate.Disabled = true
+
+    -- Animation data for the first animation
+    local animation1Data = {
+        ID = "rbxassetid://13694096724", -- First animation ID
+        TimePosition = 7.5 -- Starting time position for the first animation
+    }
+
+    -- Animation data for the second animation
+    local animation2Data = {
+        ID = "rbxassetid://116122179383984", -- Second animation ID
+        TimePosition = 9 -- Starting time position for the second animation
+    }
+
+    -- Create and load animations
+    local animation1 = Instance.new("Animation")
+    animation1.AnimationId = animation1Data.ID
+    local animationTrack1 = humanoid:LoadAnimation(animation1)
+
+    local animation2 = Instance.new("Animation")
+    animation2.AnimationId = animation2Data.ID
+    local animationTrack2 = humanoid:LoadAnimation(animation2)
+
+    -- Play animations and freeze them at the desired positions
+    animationTrack1:Play()
+    animationTrack1.TimePosition = animation1Data.TimePosition
+    animationTrack1:AdjustSpeed(0) -- Freeze animation 1
+
+    animationTrack2:Play()
+    animationTrack2.TimePosition = animation2Data.TimePosition
+    animationTrack2:AdjustSpeed(2) -- Freeze animation 2
+end
+
+-- Function to stop any playing animations
+local function stopAnimations()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if humanoid then
+        -- Stop all animations that are currently playing
+        for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+            track:Stop()
+        end
+
+        -- Optionally, re-enable the Animate script if you want animations to resume
+        character.Animate.Disabled = false
+    else
+        warn("Humanoid not found in character.")
+    end
+end
+
+-- Function to trigger the "sneaky" animation
+local function playsneaky()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714358528"  -- sneaky animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 1)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "swish" animation
+local function playswish()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714349738"  -- swish animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0)  -- Play the animation with a slight delay
+    hit.TimePosition = 1  -- Set the animation start position
+end
+
+-- Function to trigger the "clap" animation
+local function playclap()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714371264"  -- clap animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0.5)  -- Play the animation with a slight delay
+    hit.TimePosition = 0.17  -- Set the animation start position
+end
+
+-- Function to trigger the "handstandwalk" animations
+local function playhandstandwalk()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if not humanoid then
+        warn("Humanoid not found in character.")
+        return
+    end
+
+       -- Adjust hip height
+    humanoid.HipHeight = 6
+
+    -- Stop existing animations and disable the Animate script
+    for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    character.Animate.Disabled = true
+
+    -- Animation data for the first animation
+    local animation1Data = {
+        ID = "rbxassetid://18665811005", -- First animation ID
+        TimePosition = 3.75 -- Starting time position for the first animation
+    }
+
+    -- Animation data for the second animation
+    local animation2Data = {
+        ID = "rbxassetid://116122179383984", -- Second animation ID
+        TimePosition = 9 -- Starting time position for the second animation
+    }
+
+    -- Create and load animations
+    local animation1 = Instance.new("Animation")
+    animation1.AnimationId = animation1Data.ID
+    local animationTrack1 = humanoid:LoadAnimation(animation1)
+
+    local animation2 = Instance.new("Animation")
+    animation2.AnimationId = animation2Data.ID
+    local animationTrack2 = humanoid:LoadAnimation(animation2)
+
+    -- Play animations and freeze them at the desired positions
+    animationTrack1:Play()
+    animationTrack1.TimePosition = animation1Data.TimePosition
+    animationTrack1:AdjustSpeed(0) -- Freeze animation 1
+
+    animationTrack2:Play()
+    animationTrack2.TimePosition = animation2Data.TimePosition
+    animationTrack2:AdjustSpeed(2) -- Freeze animation 2
+end
+
+-- Function to trigger the "swim3" animation
+local function playswim3()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://99384245425157"  -- swim3 animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
+    hit.TimePosition = 1.94  -- Set the animation start position
+end
+
+-- Function to trigger the "balspin" animation
+local function playbalspin()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10714293450"  -- balspin animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
+    hit.TimePosition = 1.5  -- Set the animation start position
+end
+
+-- Function to trigger the "modelwalk" animation
+local function playmodelwalk()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://10147815602"  -- modelwalk animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
+    hit.TimePosition = 0.6  -- Set the animation start position
+end
+
+-- Function to trigger the "kungfo" animation
+local function playkungfo()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://16371217304"  -- kungfo animation ID
+    local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
+    hit:Play(0.1, 1, 0.5)  -- Play the animation with a slight delay
+    hit.TimePosition = 2.4  -- Set the animation start position
+end
+
+-- Function to trigger the "gunshoot" animations
+local function playgunshoot()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if not humanoid then
+        warn("Humanoid not found in character.")
+        return
+    end
+
+    -- Stop existing animations and disable the Animate script
+    for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    character.Animate.Disabled = true
+
+    -- Animation data for the first animation
+    local animation1Data = {
+        ID = "rbxassetid://4713633512", -- First animation ID
+        TimePosition = 0 -- Starting time position for the first animation
+    }
+
+    -- Animation data for the second animation
+    local animation2Data = {
+        ID = "rbxassetid://10714389396", -- Second animation ID
+        TimePosition = 0.5 -- Starting time position for the second animation
+    }
+
+    -- Animation data for the third animation
+    local animation3Data = {
+        ID = "rbxassetid://9830680869", -- Third animation ID
+        TimePosition = 5.5 -- Starting time position for the third animation
+    }
+
+    -- Create and load animations
+    local animation1 = Instance.new("Animation")
+    animation1.AnimationId = animation1Data.ID
+    local animationTrack1 = humanoid:LoadAnimation(animation1)
+
+    local animation2 = Instance.new("Animation")
+    animation2.AnimationId = animation2Data.ID
+    local animationTrack2 = humanoid:LoadAnimation(animation2)
+
+    local animation3 = Instance.new("Animation")
+    animation3.AnimationId = animation3Data.ID
+    local animationTrack3 = humanoid:LoadAnimation(animation3)
+
+    -- Play animations and freeze them at the desired positions
+    animationTrack1:Play()
+    animationTrack1.TimePosition = animation1Data.TimePosition
+    animationTrack1:AdjustSpeed(0) -- Freeze animation 1
+
+    animationTrack2:Play()
+    animationTrack2.TimePosition = animation2Data.TimePosition
+    animationTrack2:AdjustSpeed(0) -- Freeze animation 2
+
+    animationTrack3:Play()
+    animationTrack3.TimePosition = animation3Data.TimePosition
+    animationTrack3:AdjustSpeed(0) -- Freeze animation 3
+end
+
+-- Function to trigger the "reloadgun" animations
+local function playreloadgun()
+    local character = player.Character or player.CharacterAdded:Wait()
+    local humanoid = character:FindFirstChildOfClass('Humanoid')
+
+    if not humanoid then
+        warn("Humanoid not found in character.")
+        return
+    end
+
+    -- Stop existing animations and disable the Animate script
+    for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    character.Animate.Disabled = true
+
+    -- Animation data for the first animation
+    local animation1Data = {
+        ID = "rbxassetid://10714389396", -- First animation ID
+        TimePosition = 1 -- Starting time position for the first animation
+    }
+
+    -- Animation data for the second animation
+    local animation2Data = {
+        ID = "rbxassetid://3972131105", -- Second animation ID
+        TimePosition = 0 -- Starting time position for the second animation
+    }
+
+    -- Animation data for the third animation
+    local animation3Data = {
+        ID = "rbxassetid://9830680869", -- Third animation ID
+        TimePosition = 5.5 -- Starting time position for the third animation
+    }
+
+    -- Create and load animations
+    local animation1 = Instance.new("Animation")
+    animation1.AnimationId = animation1Data.ID
+    local animationTrack1 = humanoid:LoadAnimation(animation1)
+
+    local animation2 = Instance.new("Animation")
+    animation2.AnimationId = animation2Data.ID
+    local animationTrack2 = humanoid:LoadAnimation(animation2)
+
+    local animation3 = Instance.new("Animation")
+    animation3.AnimationId = animation3Data.ID
+    local animationTrack3 = humanoid:LoadAnimation(animation3)
+
+    -- Play animations and freeze them at the desired positions
+    animationTrack1:Play()
+    animationTrack1.TimePosition = animation1Data.TimePosition
+    animationTrack1:AdjustSpeed(0) -- Freeze animation 1
+
+    animationTrack2:Play()
+    animationTrack2.TimePosition = animation2Data.TimePosition
+    animationTrack2:AdjustSpeed(1) -- Freeze animation 2
+
+    animationTrack3:Play()
+    animationTrack3.TimePosition = animation3Data.TimePosition
+    animationTrack3:AdjustSpeed(0) -- Freeze animation 3
+end
+
 -- Function to stop any playing animations
 local function stopAnimations()
     local character = player.Character or player.CharacterAdded:Wait()
@@ -366,6 +751,18 @@ scrollFrame:WaitForChild("dropButton").MouseButton1Click:Connect(playdrop)
 scrollFrame:WaitForChild("moonwalkzButton").MouseButton1Click:Connect(playmoonwalkz)
 scrollFrame:WaitForChild("pointButton").MouseButton1Click:Connect(playpoint)
 scrollFrame:WaitForChild("nutdropButton").MouseButton1Click:Connect(playnutdrop)
+scrollFrame:WaitForChild("IbelieveButton").MouseButton1Click:Connect(playIbelieve)
+scrollFrame:WaitForChild("babywalkButton").MouseButton1Click:Connect(playbabywalk)
+scrollFrame:WaitForChild("sneakyButton").MouseButton1Click:Connect(playsneaky)
+scrollFrame:WaitForChild("swishButton").MouseButton1Click:Connect(playswish)
+scrollFrame:WaitForChild("clapButton").MouseButton1Click:Connect(playclap)
+scrollFrame:WaitForChild("handstandwalkButton").MouseButton1Click:Connect(playhandstandwalk)
+scrollFrame:WaitForChild("swim3Button").MouseButton1Click:Connect(playswim3)
+scrollFrame:WaitForChild("balspinButton").MouseButton1Click:Connect(playbalspin)
+scrollFrame:WaitForChild("modelwalkButton").MouseButton1Click:Connect(playmodelwalk)
+scrollFrame:WaitForChild("kungfoButton").MouseButton1Click:Connect(playkungfo)
+scrollFrame:WaitForChild("gunshootButton").MouseButton1Click:Connect(playgunshoot)
+scrollFrame:WaitForChild("reloadgunButton").MouseButton1Click:Connect(playreloadgun)
 scrollFrame:WaitForChild("StopAnimButton").MouseButton1Click:Connect(stopAnimations)
 
 -- Create the Open/Close button
