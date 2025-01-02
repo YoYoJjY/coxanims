@@ -10,7 +10,7 @@ screenGui.Parent = playerGui
 -- Create a ScrollingFrame to hold the buttons and make it scrollable
 local scrollFrame = Instance.new("ScrollingFrame")
 scrollFrame.Name = "ScrollFrame"
-scrollFrame.Size = UDim2.new(0, 200, 0, 400)  -- Adjust the size to fit the screen
+scrollFrame.Size = UDim2.new(0, 200, 0, 800)  -- Adjust the size to fit the screen
 scrollFrame.Position = UDim2.new(1, -210, 0, 10)  -- Position it on the right side
 scrollFrame.CanvasSize = UDim2.new(0, 0, 0, 1400)  -- Adjust canvas size for scrolling
 scrollFrame.ScrollBarThickness = 10  -- Make the scrollbar visible
@@ -29,7 +29,7 @@ local buttons = {
     {name = "crawl", position = 280},
     {name = "wheelie", position = 325},
     {name = "climb", position = 370},
-    {name = "oneleg", position = 415},
+    {name = "wheelie2", position = 415},
     {name = "drop", position = 460},
     {name = "moonwalkz", position = 505},
     {name = "point", position = 550},
@@ -46,7 +46,8 @@ local buttons = {
     {name = "kungfo", position = 1045},
     {name = "gunshoot", position = 1090},
     {name = "reloadgun", position = 1135},
-    {name = "StopAnim", position = 1180},
+    {name = "oneleg", position = 1180},
+    {name = "StopAnim", position = 1225},
 }
 
 -- Create buttons dynamically
@@ -236,6 +237,9 @@ local function playwheelie()
         track:Stop()
     end
     speaker.Character.Animate.Disabled = true
+
+    -- Set the HipHeight to 2.5 before playing the animation
+    speaker.Character.Humanoid.HipHeight = 2.5
 
     hitAnim.AnimationId = "rbxassetid://3360694441"  -- wheelie animation ID
     local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
@@ -530,6 +534,22 @@ end
 
 -- Function to trigger the "swim3" animation
 local function playswim3()
+    -- Loop the first animation at its current position with speed 0.2
+    spawn(function()
+        local animationTrack1 = Instance.new("Animation") -- Define animationTrack1
+        animationTrack1.AnimationId = "rbxassetid://99384245425157"
+        local speaker = player
+        local humanoid = speaker.Character:FindFirstChildOfClass('Humanoid')
+        local track = humanoid:LoadAnimation(animationTrack1)
+        track:Play()
+
+        while track.IsPlaying do
+            track.TimePosition = 1.94
+            track:AdjustSpeed(2)
+            wait(0.5) -- Adjust delay as needed
+        end
+    end)
+
     local speaker = player
     local hitAnim = Instance.new("Animation")
 
@@ -539,7 +559,7 @@ local function playswim3()
     end
     speaker.Character.Animate.Disabled = true
 
-    hitAnim.AnimationId = "rbxassetid://99384245425157"  -- swim3 animation ID
+    hitAnim.AnimationId = "rbxassetid://"  -- swim3 animation ID
     local hit = speaker.Character:FindFirstChildOfClass('Humanoid'):LoadAnimation(hitAnim)
     hit:Play(0.1, 1, 2)  -- Play the animation with a slight delay
     hit.TimePosition = 1.94  -- Set the animation start position
@@ -610,7 +630,7 @@ local function playgunshoot()
     for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
         track:Stop()
     end
-    character.Animate.Disabled = true
+    character.Animate.Disabled = false
 
     -- Animation data for the first animation
     local animation1Data = {
@@ -671,7 +691,7 @@ local function playreloadgun()
     for _, track in pairs(humanoid:GetPlayingAnimationTracks()) do
         track:Stop()
     end
-    character.Animate.Disabled = true
+    character.Animate.Disabled = false
 
     -- Animation data for the first animation
     local animation1Data = {
@@ -716,6 +736,35 @@ local function playreloadgun()
     animationTrack3:Play()
     animationTrack3.TimePosition = animation3Data.TimePosition
     animationTrack3:AdjustSpeed(0) -- Freeze animation 3
+end
+
+-- Function to trigger the "wheelie2" hug animation and adjust HipHeight
+local function playwheelie2()
+    local speaker = player
+    local hitAnim = Instance.new("Animation")
+
+    -- Stop existing animations and disable the Animate script
+    for i, track in pairs(speaker.Character.Humanoid:GetPlayingAnimationTracks()) do
+        track:Stop()
+    end
+    speaker.Character.Animate.Disabled = true
+
+    hitAnim.AnimationId = "rbxassetid://3716468774"  -- wheelie2 animation ID
+    local humanoid = speaker.Character:FindFirstChildOfClass('Humanoid')
+    local hit = humanoid:LoadAnimation(hitAnim)
+
+    -- Adjust HipHeight to 3.5
+    humanoid.HipHeight = 3.8
+
+    -- Play the animation
+    hit:Play(0.1, 1, 0)  -- Play the animation with a slight delay
+    hit.TimePosition = 0.52  -- Set the animation start position
+
+    -- Connect to animation stopping to revert HipHeight
+    hit.Stopped:Connect(function()
+        humanoid.HipHeight = 0  -- Revert HipHeight (adjust the value to the original HipHeight)
+        speaker.Character.Animate.Disabled = false  -- Re-enable the Animate script
+    end)
 end
 
 -- Function to stop any playing animations
@@ -763,6 +812,7 @@ scrollFrame:WaitForChild("modelwalkButton").MouseButton1Click:Connect(playmodelw
 scrollFrame:WaitForChild("kungfoButton").MouseButton1Click:Connect(playkungfo)
 scrollFrame:WaitForChild("gunshootButton").MouseButton1Click:Connect(playgunshoot)
 scrollFrame:WaitForChild("reloadgunButton").MouseButton1Click:Connect(playreloadgun)
+scrollFrame:WaitForChild("wheelie2Button").MouseButton1Click:Connect(playwheelie2)
 scrollFrame:WaitForChild("StopAnimButton").MouseButton1Click:Connect(stopAnimations)
 
 -- Create the Open/Close button
